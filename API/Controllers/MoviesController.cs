@@ -1,13 +1,13 @@
 ﻿using API.Data;
-using API.Models;
+using API.Models.Movie;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class MoviesController : ControllerBase
     {
         private readonly MovieContext _context;

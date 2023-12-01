@@ -1,5 +1,5 @@
 ﻿using API.Data;
-using API.Models;
+using API.Models.Movie;
 using AutoMapper;
 
 namespace API.Mapper
@@ -9,7 +9,7 @@ namespace API.Mapper
         public MovieProfile()
         {
             CreateMap<CreateMovieRequest, Movie>();
-            CreateMap<UpdateMovieRequest, Movie>().ReverseMap();
+            CreateMap<UpdateMovieRequest, Movie>();
             CreateMap<Movie, GetMovieResponse>();
         }
     }
