@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API.Models.Movie
+﻿namespace API.Models.Movie
 {
     public class GetMovieResponse
     {

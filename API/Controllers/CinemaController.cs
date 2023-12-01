@@ -32,7 +32,7 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<GetCinemaResponse>), StatusCodes.Status200OK)]
-        public IActionResult GetCinemas([FromQuery]int page = 0, int offset = 5)
+        public IActionResult GetCinemas([FromQuery] int page = 0, int offset = 5)
         {
             var cinemas = _context.Cinemas.Skip(page * offset).Take(offset);
 
@@ -57,7 +57,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateCinema(int id, [FromBody]UpdateCinemaRequest request)
+        public IActionResult UpdateCinema(int id, [FromBody] UpdateCinemaRequest request)
         {
             var cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
 
@@ -89,6 +89,6 @@ namespace API.Controllers
             _context.SaveChanges();
 
             return NoContent();
-        }   
+        }
     }
 }

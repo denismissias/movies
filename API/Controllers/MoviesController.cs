@@ -32,7 +32,7 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<GetMovieResponse>), StatusCodes.Status200OK)]
-        public IActionResult GetMovies([FromQuery]int page = 0, int offset = 5)
+        public IActionResult GetMovies([FromQuery] int page = 0, int offset = 5)
         {
             var movies = _context.Movies.Skip(page * offset).Take(offset);
 
@@ -57,7 +57,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMovie(int id, [FromBody]UpdateMovieRequest request)
+        public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieRequest request)
         {
             var movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
 
@@ -76,7 +76,7 @@ namespace API.Controllers
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult PartialUpdateMovie(int id, [FromBody]JsonPatchDocument<UpdateMovieRequest> request)
+        public IActionResult PartialUpdateMovie(int id, [FromBody] JsonPatchDocument<UpdateMovieRequest> request)
         {
             var movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
 
