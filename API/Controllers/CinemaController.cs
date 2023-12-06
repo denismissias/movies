@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CreateCinemaResponse), StatusCodes.Status201Created)]
         public IActionResult AddCinema([FromBody] CreateCinemaRequest request)
         {
             Cinema cinema = _mapper.Map<Cinema>(request);
@@ -27,7 +27,9 @@ namespace API.Controllers
             _context.Cinemas.Add(cinema);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(GetCinema), new { id = cinema.Id }, cinema);
+            var createCinemaResponse = _mapper.Map<CreateCinemaResponse>(cinema);
+
+            return CreatedAtAction(nameof(GetCinema), new { id = cinema.Id }, createCinemaResponse);
         }
 
         [HttpGet]
@@ -36,7 +38,7 @@ namespace API.Controllers
         {
             var cinemas = _context.Cinemas.Skip(page * offset).Take(offset);
 
-            return Ok(_mapper.Map<List<GetCinemaResponse>>(cinemas));
+            return Ok(_mapper.Map<List<GetCinemaResponse>>(cinemas.ToList()));
         }
 
         [HttpGet("{id}")]

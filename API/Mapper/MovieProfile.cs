@@ -9,7 +9,7 @@ namespace API.Mapper
         public MovieProfile()
         {
             CreateMap<CreateMovieRequest, Movie>();
-            CreateMap<UpdateMovieRequest, Movie>();
+            CreateMap<UpdateMovieRequest, Movie>().ReverseMap();
             CreateMap<Movie, GetMovieResponse>();
         }
     }

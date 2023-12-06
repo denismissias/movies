@@ -9,8 +9,11 @@ namespace API.Mapper
         public CinemaProfile()
         {
             CreateMap<CreateCinemaRequest, Cinema>();
-            CreateMap<UpdateCinemaRequest, Cinema>().ReverseMap();
-            CreateMap<Cinema, GetCinemaResponse>();
+            CreateMap<UpdateCinemaRequest, Cinema>();
+            CreateMap<Cinema, GetCinemaResponse>()
+                .ForMember(cinemaResponse => cinemaResponse.Address,
+                opt => opt.MapFrom(cinema => cinema.Address));
+            CreateMap<Cinema, CreateCinemaResponse>();
         }
     }
 }
