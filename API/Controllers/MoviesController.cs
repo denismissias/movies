@@ -34,7 +34,7 @@ namespace API.Controllers
         [ProducesResponseType(typeof(List<GetMovieResponse>), StatusCodes.Status200OK)]
         public IActionResult GetMovies([FromQuery] int page = 0, int offset = 5)
         {
-            var movies = _context.Movies.Skip(page * offset).Take(offset);
+            var movies = _context.Movies.Skip(page * offset).Take(offset).ToList();
 
             return Ok(_mapper.Map<List<GetMovieResponse>>(movies));
         }

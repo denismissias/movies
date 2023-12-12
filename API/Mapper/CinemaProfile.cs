@@ -12,7 +12,9 @@ namespace API.Mapper
             CreateMap<UpdateCinemaRequest, Cinema>();
             CreateMap<Cinema, GetCinemaResponse>()
                 .ForMember(cinemaResponse => cinemaResponse.Address,
-                opt => opt.MapFrom(cinema => cinema.Address));
+                opt => opt.MapFrom(cinema => cinema.Address))
+                .ForMember(cinemaResponse => cinemaResponse.Sessions,
+                opt => opt.MapFrom(cinema => cinema.Sessions));
             CreateMap<Cinema, CreateCinemaResponse>();
         }
     }

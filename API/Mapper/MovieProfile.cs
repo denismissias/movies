@@ -10,7 +10,9 @@ namespace API.Mapper
         {
             CreateMap<CreateMovieRequest, Movie>();
             CreateMap<UpdateMovieRequest, Movie>().ReverseMap();
-            CreateMap<Movie, GetMovieResponse>();
+            CreateMap<Movie, GetMovieResponse>()
+                .ForMember(movieResponse => movieResponse.Sessions,
+                opt => opt.MapFrom(movie => movie.Sessions));
         }
     }
 }
