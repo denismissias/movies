@@ -1,7 +1,6 @@
 ﻿using API.Data;
 using API.Models.Session;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -56,25 +55,5 @@ namespace API.Controllers
 
             return Ok(_mapper.Map<GetSessionResponse>(session));
         }
-
-        //[HttpPut("{id}")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public IActionResult UpdateSession(int id, [FromBody] UpdateSessionRequest request)
-        //{
-        //    var session = _context.Sessions.FirstOrDefault(session => session.Id == id);
-
-        //    if (session is null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _mapper.Map(request, session);
-
-        //    _context.SaveChanges();
-
-        //    return NoContent();
-
-        //}
     }
 }
