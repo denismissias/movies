@@ -29,7 +29,7 @@ namespace API.Controllers
 
             var createSessionResponse = _mapper.Map<CreateSessionResponse>(session);
 
-            return CreatedAtAction(nameof(GetSession), new { id = session.Id }, createSessionResponse);
+            return CreatedAtAction(nameof(GetSession), new { movieId = session.MovieId, cinemaId = session.CinemaId }, createSessionResponse);
         }
 
         [HttpGet]
@@ -41,12 +41,12 @@ namespace API.Controllers
             return Ok(_mapper.Map<List<GetSessionResponse>>(sessions));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{movieId}/{cinemaId}")]
         [ProducesResponseType(typeof(GetSessionResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetSession(int id)
+        public IActionResult GetSession(int movieId, int cinemaId)
         {
-            var session = _context.Sessions.FirstOrDefault(session => session.Id == id);
+            var session = _context.Sessions.FirstOrDefault(session => session.MovieId == movieId && session.CinemaId == cinemaId);
 
             if (session is null)
             {
