@@ -32,9 +32,18 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<GetMovieResponse>), StatusCodes.Status200OK)]
-        public IActionResult GetMovies([FromQuery] int page = 0, int offset = 5)
+        public IActionResult GetMovies([FromQuery] string? cinemaName, int page = 0, int offset = 5)
         {
-            var movies = _context.Movies.Skip(page * offset).Take(offset).ToList();
+            IEnumerable<Movie> movies;
+
+            if (cinemaName is not null)
+            {
+                movies = _context.Movies.Where(movie => movie.Sessions.Any(s => s.Cinema.Name == cinemaName)).Skip(page * offset).Take(offset).ToList();
+
+                return Ok(_mapper.Map<List<GetMovieResponse>>(movies));
+            }
+
+            movies = _context.Movies.Skip(page * offset).Take(offset).ToList();
 
             return Ok(_mapper.Map<List<GetMovieResponse>>(movies));
         }

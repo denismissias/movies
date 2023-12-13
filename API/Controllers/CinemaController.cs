@@ -2,6 +2,7 @@
 using API.Models.Cinema;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -34,9 +35,20 @@ namespace API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<GetCinemaResponse>), StatusCodes.Status200OK)]
-        public IActionResult GetCinemas([FromQuery] int page = 0, int offset = 5)
+        public IActionResult GetCinemas([FromQuery] int? addressId, int page = 0, int offset = 5)
         {
-            var cinemas = _context.Cinemas.Skip(page * offset).Take(offset);
+            IQueryable<Cinema> cinemas;
+
+            if (addressId.HasValue)
+            {
+                string sql = "SELECT * FROM Cinemas WHERE AddressId = {0} LIMIT {1} OFFSET {2}";
+
+                cinemas = _context.Cinemas.FromSqlRaw(sql, addressId, offset, page * offset);
+
+                return Ok(_mapper.Map<List<GetCinemaResponse>>(cinemas.ToList()));
+            }
+            
+            cinemas = _context.Cinemas.Skip(page * offset).Take(offset);
 
             return Ok(_mapper.Map<List<GetCinemaResponse>>(cinemas.ToList()));
         }
